@@ -14,8 +14,10 @@ from home.models import Note
 
 class NoteListApiView(ListAPIView):
     permission_classes = [IsAuthenticated, ]
-    queryset = Note.objects.all()
     serializer_class = NoteSerializer
+
+    def get_queryset(self):
+        return Note.objects.filter(author=self.request.user)
 
 
 class NoteDetailApiView(RetrieveAPIView):
@@ -26,7 +28,7 @@ class NoteDetailApiView(RetrieveAPIView):
 @api_view(['POST', ])
 @permission_classes([IsAuthenticated, ])
 def create_note_api(request):
-    account = Account.objects.get(pk=1)
+    account = request.user
     note = Note(author=account)
     if request.method == 'POST':
         serializer = NoteSerializer(note, data=request.data)
