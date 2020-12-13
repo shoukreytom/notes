@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Notes - Delete Note{% endblock %}
+
+{% block body %}
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Confirm delete</button>
+</form>
+{% endblock %}
