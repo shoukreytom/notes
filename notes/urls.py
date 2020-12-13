@@ -6,5 +6,6 @@ urlpatterns = [
     path('', include('home.urls')),
 
     # api
-    path('notes/api/v1/notes/', include('home.api.urls')),
+    path('notes/api/v1/', include('home.api.urls')),
+    path('accounts/api/v1/', include('account.api.urls'))
 ]
