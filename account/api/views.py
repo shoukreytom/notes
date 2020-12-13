@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.authtoken.models import Token
 
 from .serializers import RegistrationSerializer
 
@@ -13,7 +14,8 @@ def create_new_user(request):
             account = serializer.save()
             data = {
                 'response': 'user is registered successfully',
-                'email': account.email
+                'email': account.email,
+                'token': Token.objects.get(user=account).key,
             }
             return Response(data=data)
         return Response(serializer.errors)
