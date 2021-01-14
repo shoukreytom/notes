@@ -9,19 +9,19 @@ from home.forms import AddNoteForm
 
 
 def home(request):
-    return render(request, "home.html")
+    return render(request, "home/index.html")
 
 
 class NoteList(LoginRequiredMixin, ListView):
     model = Note
-    template_name = 'notes/note_list.html'
+    template_name = 'home/notes/note_list.html'
     ordering = ['-updated', ]
     context_object_name = 'notes'
 
 
 class NoteDetail(LoginRequiredMixin, DetailView):
     model = Note
-    template_name = 'notes/note_detail.html'
+    template_name = 'home/notes/note_detail.html'
     context_object_name = 'note'
 
 
@@ -30,7 +30,7 @@ class CreateNote(LoginRequiredMixin, View):
 
     def get(self, request):
         ctx = {'form': self.init_form}
-        return render(request, 'notes/add_note.html', ctx)
+        return render(request, 'home/notes/add_note.html', ctx)
     
     def post(self, request):
         form = AddNoteForm(request.POST)
@@ -38,19 +38,19 @@ class CreateNote(LoginRequiredMixin, View):
             obj = form.save(commit=False)
             obj.author = request.user
             obj.save()
-            return render(request, 'notes/note_list.html')
+            return render(request, 'home/notes/note_list.html')
         else:
             ctx = {'form': self.init_form}
-            return render(request, 'notes/add_note.html', ctx)
+            return render(request, 'home/notes/add_note.html', ctx)
 
 
 class UpdateNote(LoginRequiredMixin, UpdateView):
     model = Note
-    template_name = 'notes/update_note.html'
+    template_name = 'home/notes/update_note.html'
     fields = ('title', 'body', )
 
 
 class DeleteNote(LoginRequiredMixin, DeleteView):
     model = Note
-    template_name = 'notes/note_confirm_delete.html'
+    template_name = 'home/notes/note_confirm_delete.html'
     success_url = reverse_lazy('notes')
