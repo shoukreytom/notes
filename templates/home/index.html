@@ -1,3 +1,74 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html class="h-100" lang="en">
 
-{% block title %}Notes - Home{% endblock %}
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Shoukrey Tom">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>Home</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <meta name="theme-color" content="#7952b3">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/cover.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="d-flex h-100 text-center text-white bg-dark" data-new-gr-c-s-check-loaded="8.868.0"
+    data-gr-ext-installed="">
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0">AddMyNote</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" href="#">My Notes</a>
+                    <a class="nav-link" href="#">Sign In</a>
+                    <a class="nav-link" href="#">Sign Up</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="px-3">
+            <h1>AddMyNote</h1>
+            <p class="lead">AddMyNote is a place where you can simply add
+                your daily notes. you can add, edit, delete, and download your own
+                notes either by this site or by your own website/app through our API.</p>
+            <p class="lead">
+                <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Get Started</a>
+            </p>
+        </main>
+
+        <footer class="mt-auto text-white-50">
+            <p>&copy; 2021, Shoukrey Tom.</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>
