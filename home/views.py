@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import (ListView, DetailView, 
                                     View, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 from home.models import Note
 from home.forms import AddNoteForm
@@ -38,7 +38,8 @@ class CreateNote(LoginRequiredMixin, View):
             obj = form.save(commit=False)
             obj.author = request.user
             obj.save()
-            return render(request, 'home/notes/note_list.html')
+            notes = Note.objects.all()
+            return render(request, 'home/notes/note_list.html', {'notes': notes})
         else:
             ctx = {'form': self.init_form}
             return render(request, 'home/notes/add_note.html', ctx)
@@ -48,6 +49,11 @@ class UpdateNote(LoginRequiredMixin, UpdateView):
     model = Note
     template_name = 'home/notes/update_note.html'
     fields = ('title', 'body', )
+    
+    def get_success_url(self):
+        return reverse('note-detail', kwargs={
+            'slug': self.object.slug,
+        })
 
 
 class DeleteNote(LoginRequiredMixin, DeleteView):

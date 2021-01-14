@@ -2,7 +2,8 @@
 
 {% block title %}Notes - Create Note{% endblock %}
 
-{% block body %}
+{% block main %}
+<h1>Add new Note</h1>
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}

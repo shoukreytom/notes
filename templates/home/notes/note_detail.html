@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Notes - {{ note.title }}{% endblock %}
-
-{% block body %}
-<h1>{{ note.title }}</h1>
-<p>{{ note.body }}</p>
-{% endblock %}
+{% block main %}
+<main class="px-3">
+    <h1>{{ note.title }}</h1>
+    <p>{{ note.body }}</p>
+    <a href="" class="btn btn-secondary">Download</a>
+    <a href="{% url 'update-note' note.slug %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'delete-note' note.slug %}" class="btn btn-danger">Delete</a>
+</main>
+{% endblock main %}
