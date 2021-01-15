@@ -20,5 +20,5 @@ class Note(models.Model):
 @receiver(post_save, sender=Note)
 def save_slug(sender, created, instance, *args, **kwargs):
     if created:
-        instance.slug = slugify(instance.title)
+        instance.slug = slugify(instance.title + str(instance.updated))
         instance.save()

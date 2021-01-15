@@ -1,11 +1,21 @@
 {% extends 'base.html' %}
 
-{% block title %}Notes - Update Note{% endblock %}
-
 {% block main %}
-<form method="POST">
+<form action="" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
+    <fieldset>
+        <legend>Update Note</legend>
+        <div class="form-group border p-4 my-4">
+            <div class="form-group">
+                <label for="title">Title</label><br>
+                <input type="text" value="{{ note.title }}" name="title" placeholder="Note title" required id="title" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="body">Description</label>
+                <textarea name="body" placeholder="Type note description here" required id="body" cols="30" rows="10" class="form-control">{{ note.body }}</textarea>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </fieldset>
 </form>
-{% endblock %}
+{% endblock main %}

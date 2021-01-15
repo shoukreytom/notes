@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import (ListView, DetailView, 
                                     View, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -37,7 +37,6 @@ class CreateNote(LoginRequiredMixin, View):
             note = Note(title=title, body=body)
             note.author = request.user
             note.save()
-            notes = Note.objects.all()
             return redirect('notes')
         else:
             return render(request, 'home/notes/add_note.html')
@@ -46,7 +45,7 @@ class CreateNote(LoginRequiredMixin, View):
 class UpdateNote(LoginRequiredMixin, UpdateView):
     model = Note
     template_name = 'home/notes/update_note.html'
-    fields = ('title', 'body', )
+    fields = ['title', 'body', ]
     
     def get_success_url(self):
         return reverse('note-detail', kwargs={
@@ -57,4 +56,5 @@ class UpdateNote(LoginRequiredMixin, UpdateView):
 class DeleteNote(LoginRequiredMixin, DeleteView):
     model = Note
     template_name = 'home/notes/note_confirm_delete.html'
+    context_object_name = 'note'
     success_url = reverse_lazy('notes')
