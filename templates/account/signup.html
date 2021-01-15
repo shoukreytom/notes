@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<form action="{% url 'signup' %}" method="POST">
+    <fieldset>
+        <legend>Sign Up</legend>
+        <div class="form-group border p-4 my-4">
+            <div class="form-group">
+                <label for="email">Email</label><br>
+                <input type="emial" name="email" placeholder="joe@example.com" required id="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password1">Password</label>
+                <input type="password" name="password1" placeholder="Enter your password" required id="password1" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password2">Confirm Password</label>
+                <input type="password" name="password2" placeholder="Confirm your password" required id="password2" class="form-control">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </fieldset>
+</form>
+{% endblock main %}
