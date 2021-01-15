@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import (ListView, DetailView, 
                                     View, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -26,23 +26,21 @@ class NoteDetail(LoginRequiredMixin, DetailView):
 
 
 class CreateNote(LoginRequiredMixin, View):
-    init_form = AddNoteForm()
 
     def get(self, request):
-        ctx = {'form': self.init_form}
-        return render(request, 'home/notes/add_note.html', ctx)
+        return render(request, 'home/notes/add_note.html')
     
     def post(self, request):
-        form = AddNoteForm(request.POST)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.author = request.user
-            obj.save()
+        title = request.POST.get('title', None)
+        body = request.POST.get('body', None)
+        if not (title is None or body is None):
+            note = Note(title=title, body=body)
+            note.author = request.user
+            note.save()
             notes = Note.objects.all()
-            return render(request, 'home/notes/note_list.html', {'notes': notes})
+            return redirect('notes')
         else:
-            ctx = {'form': self.init_form}
-            return render(request, 'home/notes/add_note.html', ctx)
+            return render(request, 'home/notes/add_note.html')
 
 
 class UpdateNote(LoginRequiredMixin, UpdateView):
