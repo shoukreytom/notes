@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<form action="{% url 'signin' %}" method="POST">
+<form action="{% url 'create-note' %}" method="POST">
+    {% csrf_token %}
     <fieldset>
         <legend>New Note</legend>
         <div class="form-group border p-4 my-4">
