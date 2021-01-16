@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block main %}
+<h1>Profile</h1>
+<div>
+    <table class="table table-dark table-hover">
+        <tr>
+            <td>Email</td>
+            <td>{{ user }}</td>
+        </tr>
+        <tr>
+            <td>Total Notes</td>
+            <td>{{ notes_num }}</td>
+        </tr>
+    </table>
+</div>
+<div>
+    <a href="" class="btn btn-outline-secondary mx-4">Update Email</a>
+    <a href="{% url 'signout' %}" class="btn btn-primary">Sign out</a>
+</div>
+{% endblock main %}

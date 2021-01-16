@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from .models import Account
+from home.models import Note
 
 
 @csrf_exempt
@@ -27,3 +29,18 @@ def signin(request):
             login(request, user)
             return redirect('home')
     return render(request, 'account/signin.html')
+
+@login_required
+def profile(request):
+    user = request.user
+    count_notes = Note.objects.filter(author=user).count()
+    ctx = {
+        'user': user,
+        'notes_num': count_notes,
+    }
+    return render(request, 'account/profile.html', ctx)
+
+@login_required
+def signout(request):
+    logout(request)
+    return redirect('home')
