@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from django.views.generic import (ListView, DetailView, 
                                     View, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -58,3 +59,15 @@ class DeleteNote(LoginRequiredMixin, DeleteView):
     template_name = 'home/notes/note_confirm_delete.html'
     context_object_name = 'note'
     success_url = reverse_lazy('notes')
+
+
+def download_note(request, slug):
+    note = get_object_or_404(Note, slug=slug)
+    file_name = note.slug + ".txt"
+    note_file = open(file_name, "w+")
+    note_file.write(note.body)
+    note_file.close()
+    note_file = open(file_name)
+    response = HttpResponse(note_file.read(), content_type="application/text")
+    response['Content-Disposition'] = 'inline; filename=' + file_name
+    return response

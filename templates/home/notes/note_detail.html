@@ -6,7 +6,7 @@
 <main class="px-3">
     <h1>{{ note.title }}</h1>
     <p>{{ note.body }}</p>
-    <a href="" class="btn btn-secondary mx-4">Download</a>
+    <a href="{% url 'download-note' note.slug %}" class="btn btn-secondary mx-4">Download</a>
     <a href="{% url 'update-note' note.slug %}" class="btn btn-primary">Update</a>
     <a href="{% url 'delete-note' note.slug %}" class="btn btn-danger mx-4">Delete</a>
 </main>
