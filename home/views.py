@@ -19,6 +19,9 @@ class NoteList(LoginRequiredMixin, ListView):
     ordering = ['-updated', ]
     context_object_name = 'notes'
 
+    def get_queryset(self):
+        return Note.objects.filter(author=self.request.user)
+
 
 class NoteDetail(LoginRequiredMixin, DetailView):
     model = Note
